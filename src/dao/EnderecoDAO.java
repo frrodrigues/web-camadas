@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Cliente;
 import model.Endereco;
 
 public class EnderecoDAO implements EnderecoInDAO {
@@ -59,29 +60,31 @@ public class EnderecoDAO implements EnderecoInDAO {
 	}
 
 	@Override
-	public List<Endereco> listarEnderecosPorPessoa(int _idPessoa) throws SQLException {
+	public List<Endereco> listarEnderecosPorCliente(int _idCliente) throws SQLException {
 		
 		List<Endereco> enderecos = new ArrayList<Endereco>();
 		ResultSet rs = null;
 		
-		String SQL = "SELECT id, logradouro, numero, bairro, cidade, estado FROM endereco WHERE pessoa_id = ?";
-		
+		String SQL = "SELECT id, logradouro, numero, bairro, cidade, estado FROM endereco WHERE cliente_id = ?";
 		PreparedStatement ps = this.conexao.prepareStatement(SQL);
 		
-		ps.setInt(1, _idPessoa);
+		ps.setInt(1, _idCliente);
 		
 		rs = ps.executeQuery();
 		
 		while (rs.next()) {
 			
-			int id = rs.getInt(1);
+			int id_cli = rs.getInt(1);
 			String logradouro = rs.getString(2);
 			int numero = rs.getInt(3);
 			String bairro = rs.getString(4);
 			String cidade = rs.getString(5);
 			String estado = rs.getString(6);
 			
-			Endereco end = new Endereco(id, logradouro, numero, bairro, cidade, estado);
+			ClienteDAO daoCli= new ClienteDAO(conexao);
+			Cliente cli =daoCli.buscarPorId(id_cli);
+			
+			Endereco end = new Endereco(cli , logradouro, numero, bairro, cidade, estado);
 			
 			enderecos.add(end);
 		}

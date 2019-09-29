@@ -6,8 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import model.Cliente;
 
 import model.OrdemServico;
+import model.Servico;
+import model.Tecnico;
 
 public class OrdemServicoDAO  implements OrdemServicoInDAO{
 
@@ -29,9 +32,9 @@ private Connection conexao = null;
 		ps.setInt(2, _objeto.getSla());
 		ps.setString(3, _objeto.getData_fim());
 		ps.setString(4, _objeto.getStatus());
-		ps.setInt(5, _objeto.getId_cli());
-		ps.setInt(6, _objeto.getCod_tec());
-		ps.setInt(7, _objeto.getNum_serv());
+		ps.setInt(5, _objeto.getCli().getId());
+		ps.setInt(6, _objeto.getCod_tec().getCod());
+		ps.setInt(7, _objeto.getNum_serv().getNum());
 		
 		ps.execute();
 
@@ -62,7 +65,18 @@ private Connection conexao = null;
 			int cod_tec = rs.getInt(7);
 			int num_serv = rs.getInt(8);
 			
-			OrdemServico p = new OrdemServico (seq, data_ini, sla, data_fim, status, id_cli, cod_tec,num_serv);
+			// Mostrar thiag
+			
+			ClienteDAO daoCli= new ClienteDAO(conexao);
+			Cliente cli =daoCli.buscarPorId(id_cli);
+			
+			TecnicoDAO daoTec= new TecnicoDAO(conexao);
+			Tecnico tec =daoTec.buscarPorCod(cod_tec);
+			
+			ServicoDAO daoServ= new ServicoDAO(conexao);
+			Servico serv =daoServ.buscarPorNum(num_serv);
+			
+			OrdemServico p = new OrdemServico (seq, data_ini, sla, data_fim, status,cli, tec, serv);
 			
 			OrdemServicos.add(p);
 		}
@@ -93,9 +107,9 @@ private Connection conexao = null;
 		ps.setInt(2, _objeto.getSla());
 		ps.setString(3, _objeto.getData_fim());
 		ps.setString(4, _objeto.getStatus());
-		ps.setInt(5, _objeto.getId_cli());
-		ps.setInt(6, _objeto.getCod_tec());
-		ps.setInt(7, _objeto.getNum_serv());
+		ps.setInt(5, _objeto.getCli().getId());
+		ps.setInt(6, _objeto.getCod_tec().getCod());
+		ps.setInt(7, _objeto.getNum_serv().getNum());
 		
 		ps.setInt(4, _objeto.getSeq());
 		
@@ -127,8 +141,18 @@ private Connection conexao = null;
 			int cod_tec = rs.getInt(7);
 			int num_serv = rs.getInt(8);
 			
-						
-			p = new OrdemServico(seq, data_ini, sla, data_fim, status, id_cli, cod_tec,num_serv);
+			ClienteDAO daoCli= new ClienteDAO(conexao);
+			Cliente cli =daoCli.buscarPorId(id_cli);
+			
+			TecnicoDAO daoTec= new TecnicoDAO(conexao);
+			Tecnico tec =daoTec.buscarPorCod(cod_tec);
+			
+			ServicoDAO daoServ= new ServicoDAO(conexao);
+			Servico serv =daoServ.buscarPorNum(num_serv);
+			
+			OrdemServico p = new OrdemServico (seq, data_ini, sla, data_fim, status,cli, tec, serv);
+		
+				
 		}
 		
 		return p;

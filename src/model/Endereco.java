@@ -10,7 +10,7 @@ public class Endereco implements Serializable {
 		
 	}
 	
-	public Endereco(int id, String logradouro, int numero, String bairro, String cidade, String estado) {
+	public Endereco(Cliente id, String logradouro, int numero, String bairro, String cidade, String estado) {
 		super();
 		this.id = id;
 		this.logradouro = logradouro;
@@ -20,18 +20,18 @@ public class Endereco implements Serializable {
 		this.estado = estado;
 	}
 
-	private int id;
+	private Cliente id;
 	private String logradouro;
 	private int numero;
 	private String bairro;
 	private String cidade;
 	private String estado;
 	
-	public int getId() {
+	public Cliente getId() {
 		return id;
 	}
 	
-	public void setId(int id) {
+	public void setId(Cliente id) {
 		this.id = id;
 	}
 	
@@ -75,11 +75,12 @@ public class Endereco implements Serializable {
 		this.estado = estado;
 	}
 
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + id;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 
@@ -92,13 +93,16 @@ public class Endereco implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Endereco other = (Endereco) obj;
-		if (id != other.id)
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return logradouro + ", Nº" + numero + "," + bairro + "," + cidade + "/" + estado;
+		return logradouro + ", Nï¿½" + numero + "," + bairro + "," + cidade + "/" + estado;
 	}
 }

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Tecnico;
-import model.Endereco;
+
 
 public class TecnicoDAO implements TecnicoInDAO{
 private Connection conexao = null;
@@ -52,9 +52,6 @@ private Connection conexao = null;
 			String nome = rs.getString(2);
 			String cargo = rs.getString(3);
 			String tel = rs.getString(4);
-			
-			EnderecoDAO daoEnd = new EnderecoDAO(this.conexao);
-			List<Endereco> enderecos = daoEnd.listarEnderecosPortecnico(cod);
 			
 			Tecnico p = new Tecnico(cod, nome, cargo, tel);
 			

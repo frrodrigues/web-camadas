@@ -55,7 +55,7 @@ public class ClienteDAO implements ClienteInDAO {
 			String telefone = rs.getString(4);
 			
 			EnderecoDAO daoEnd = new EnderecoDAO(this.conexao);
-			List<Endereco> enderecos = daoEnd.listarEnderecosPorPessoa(id);
+			List<Endereco> enderecos = daoEnd.listarEnderecosPorCliente(id);
 			
 			Cliente p = new Cliente(id, nome, email, telefone, enderecos);
 			
@@ -80,7 +80,7 @@ public class ClienteDAO implements ClienteInDAO {
 	@Override
 	public Boolean Atualizar(Cliente _objeto) throws SQLException {
 
-		String SQL = "UPDATE pessoa SET nome = ?, email = ?, tel = ? WHERE id = ?";
+		String SQL = "UPDATE cliente SET nome = ?, email = ?, tel = ? WHERE id = ?";
 		
 		PreparedStatement ps = this.conexao.prepareStatement(SQL);
 		
@@ -99,7 +99,7 @@ public class ClienteDAO implements ClienteInDAO {
 		ResultSet rs = null;
 		Cliente p = null;
 		
-		String SQL = "SELECT id, nome, email, tel FROM pessoa WHERE id = ?";
+		String SQL = "SELECT id, nome, email, tel FROM cliente WHERE id = ?";
 		
 		PreparedStatement ps = this.conexao.prepareStatement(SQL);
 		
@@ -115,7 +115,7 @@ public class ClienteDAO implements ClienteInDAO {
 			String telefone = rs.getString(4);
 			
 			EnderecoDAO daoEnd = new EnderecoDAO(this.conexao);
-			List<Endereco> enderecos = daoEnd.listarEnderecosPorPessoa(id);
+			List<Endereco> enderecos = daoEnd.listarEnderecosPorCliente(id);
 			
 			p = new Cliente(id, nome, email, telefone, enderecos);
 		}

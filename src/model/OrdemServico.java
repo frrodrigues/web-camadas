@@ -1,7 +1,8 @@
 package model;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+
+import model.Cliente;
+import model.Servico;
 
 public class OrdemServico implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -10,20 +11,22 @@ public class OrdemServico implements Serializable{
 	private int sla;
 	private String data_fim;
 	private String status;
-	private int id_cli;
-	private int cod_tec;
-	private int num_serv;
+	private Cliente cli;
+	private Tecnico cod_tec;
+	private Servico num_serv;
 		
-	public OrdemServico(int seq, String data_ini,int sla, String data_fim, String status, int id_cli,  int cod_tec,
-			int num_serv) {
+	public OrdemServico(int seq, String data_ini,int sla, String data_fim, String status,  Cliente _cli,  Tecnico _cod_tec,
+			Servico _num_serv) {
 		super();
 		this.seq = seq;
 		this.data_ini = data_ini;
 		this.data_fim = data_fim;
 		this.status = status;
-		this.id_cli= id_cli;
-		this.cod_tec= cod_tec;
-		this.num_serv = num_serv;
+		this.cli= _cli;
+		this.cod_tec= _cod_tec;
+		this.num_serv = _num_serv;
+		
+		
 }
 
 	public int getSeq() {
@@ -66,27 +69,27 @@ public class OrdemServico implements Serializable{
 		this.status = status;
 	}
 
-	public int getId_cli() {
-		return id_cli;
+	public Cliente getCli() {
+		return cli;
 	}
 
-	public void setId_cli(int id_cli) {
-		this.id_cli = id_cli;
+	public void setCli(Cliente cli) {
+		this.cli = cli;
 	}
 
-	public int getCod_tec() {
+	public Tecnico getCod_tec() {
 		return cod_tec;
 	}
 
-	public void setCod_tec(int cod_tec) {
+	public void setCod_tec(Tecnico cod_tec) {
 		this.cod_tec = cod_tec;
 	}
 
-	public int getNum_serv() {
+	public Servico getNum_serv() {
 		return num_serv;
 	}
 
-	public void setNum_serv(int num_serv) {
+	public void setNum_serv(Servico num_serv) {
 		this.num_serv = num_serv;
 	}
 
@@ -115,9 +118,9 @@ public class OrdemServico implements Serializable{
 	@Override
 	public String toString() {
 		return "OrdemServico [seq=" + seq + ", data_ini=" + data_ini + ", sla=" + sla + ", data_fim=" + data_fim
-				+ ", status=" + status + ", id_cli=" + id_cli + ", cod_tec=" + cod_tec + ", num_serv=" + num_serv + "]";
+				+ ", status=" + status + ", cli=" + cli + ", cod_tec=" + cod_tec + ", num_serv=" + num_serv + "]";
 	}
 
 	
 	
-	}
+} 

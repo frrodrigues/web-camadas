@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Servico;
-import model.Endereco;
+
 
 public class ServicoDAO implements ServicoInDAO  {
 private Connection conexao = null;
